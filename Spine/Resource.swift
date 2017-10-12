@@ -81,7 +81,7 @@ struct RelationshipData {
 /// You can create custom resource classes by subclassing from Resource.
 open class Resource: NSObject, NSCoding {
 	/// The resource type in plural form.
-	open class var resourceType: ResourceType {
+	@objc open class var resourceType: ResourceType {
 		fatalError("Override resourceType in a subclass.")
 	}
 
@@ -89,16 +89,16 @@ open class Resource: NSObject, NSCoding {
 	open class var fields: [Field] { return [] }
 	
 	/// The ID of this resource.
-	public var id: String?
+	@objc public var id: String?
 	
 	/// The canonical URL of the resource.
-	public var url: URL?
+	@objc public var url: URL?
 	
 	/// Whether the fields of the resource are loaded.
-	public var isLoaded: Bool = false
+	@objc public var isLoaded: Bool = false
 	
 	/// The metadata for this resource.
-	public var meta: [String: Any]?
+	@objc public var meta: [String: Any]?
 	
 	/// Raw relationship data keyed by relationship name.
 	var relationships: [String: RelationshipData] = [:]
@@ -136,17 +136,17 @@ open class Resource: NSObject, NSCoding {
 	}
 
   /// Returns the value for the field named `field`.
-	func value(forField field: String) -> Any? {
+	@objc func value(forField field: String) -> Any? {
 		return value(forKey: field) as AnyObject?
 	}
 
 	/// Sets the value for the field named `field` to `value`.
-	func setValue(_ value: Any?, forField field: String) {
+	@objc func setValue(_ value: Any?, forField field: String) {
 		setValue(value, forKey: field)
 	}
 
 	/// Set the values for all fields to nil and sets `isLoaded` to false.
-	public func unload() {
+	@objc public func unload() {
 		for field in fields {
 			setValue(nil, forField: field.name)
 		}
@@ -172,7 +172,7 @@ extension Resource {
 
 /// Instance counterparts of class functions
 extension Resource {
-	final var resourceType: ResourceType { return type(of: self).resourceType }
+	@objc final var resourceType: ResourceType { return type(of: self).resourceType }
 	final var fields: [Field] { return type(of: self).fields }
 }
 
