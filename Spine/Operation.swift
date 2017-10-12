@@ -109,7 +109,7 @@ class ConcurrentOperation: Operation {
 		execute()
 	}
 	
-	func execute() {}
+	@objc func execute() {}
 }
 
 
@@ -121,7 +121,7 @@ class FetchOperation<T: Resource>: ConcurrentOperation {
 	let query: Query<T>
 	
 	/// Existing resources onto which to map the fetched resources.
-	var mappingTargets = [Resource]()
+	@objc var mappingTargets = [Resource]()
 	
 	/// The result of the operation. You can safely force unwrap this in the completionBlock.
 	var result: Failable<JSONAPIDocument, SpineError>?
@@ -167,7 +167,7 @@ class FetchOperation<T: Resource>: ConcurrentOperation {
 /// DeleteOperation deletes a resource from a Spine.
 class DeleteOperation: ConcurrentOperation {
 	/// The resource to delete.
-	let resource: Resource
+	@objc let resource: Resource
 	
 	/// The result of the operation. You can safely force unwrap this in the completionBlock.
 	var result: Failable<Void, SpineError>?
@@ -192,7 +192,7 @@ class DeleteOperation: ConcurrentOperation {
 			}
 			
 			if statusCodeIsSuccess(statusCode) {
-				self.result = .success()
+				self.result = .success(())
 			} else if let data = responseData , data.count > 0 {
 				do {
 					let document = try self.serializer.deserializeData(data)
@@ -210,7 +210,7 @@ class DeleteOperation: ConcurrentOperation {
 /// A SaveOperation updates or adds a resource in a Spine.
 class SaveOperation: ConcurrentOperation {
 	/// The resource to save.
-	let resource: Resource
+	@objc let resource: Resource
 	
 	/// The result of the operation. You can safely force unwrap this in the completionBlock.
 	var result: Failable<Void, SpineError>?
@@ -299,7 +299,7 @@ class SaveOperation: ConcurrentOperation {
 			}
 			
 			if success {
-				self.result = .success()
+				self.result = .success(())
 			} else {
 				self.result = .failure(.serverError(statusCode: statusCode!, apiErrors: document?.errors))
 			}
@@ -379,7 +379,7 @@ private class RelationshipOperation: ConcurrentOperation {
 		}
 		
 		if statusCodeIsSuccess(statusCode) {
-			self.result = .success()
+			self.result = .success(())
 		} else if let data = responseData, data.count > 0 {
 			do {
 				let document = try serializer.deserializeData(data)
@@ -395,7 +395,7 @@ private class RelationshipOperation: ConcurrentOperation {
 
 /// A RelationshipReplaceOperation replaces the entire contents of a relationship.
 private class RelationshipReplaceOperation: RelationshipOperation {
-	let resource: Resource
+	@objc let resource: Resource
 	let relationship: Relationship
 
 	init(resource: Resource, relationship: Relationship, spine: Spine) {
@@ -431,7 +431,7 @@ private class RelationshipMutateOperation: RelationshipOperation {
 		case add, remove
 	}
 	
-	let resource: Resource
+	@objc let resource: Resource
 	let relationship: ToManyRelationship
 	let mutation: Mutation
 
@@ -458,7 +458,7 @@ private class RelationshipMutateOperation: RelationshipOperation {
 		}
 		
 		guard !relatedResources.isEmpty else {
-			result = .success()
+			result = .success(())
 			state = .finished
 			return
 		}
