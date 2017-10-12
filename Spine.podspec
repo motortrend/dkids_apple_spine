@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Spine'
-  s.version = '0.7.0'
+  s.version = '0.8.0'
   s.license = 'MIT'
   s.summary = 'A Swift library for interaction with a jsonapi.org API'
   s.homepage = 'https://github.com/discovery-fusion/dkids_apple_spine'
