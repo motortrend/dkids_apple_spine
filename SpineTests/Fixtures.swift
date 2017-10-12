@@ -11,14 +11,14 @@ import XCTest
 import SwiftyJSON
 
 class Foo: Resource {
-	var stringAttribute: String?
-	var integerAttribute: NSNumber?
-	var floatAttribute: NSNumber?
-	var booleanAttribute: NSNumber?
-	var nilAttribute: AnyObject?
-	var dateAttribute: Date?
-	var toOneAttribute: Bar?
-	var toManyAttribute: LinkedResourceCollection?
+	@objc var stringAttribute: String?
+	@objc var integerAttribute: NSNumber?
+	@objc var floatAttribute: NSNumber?
+	@objc var booleanAttribute: NSNumber?
+	@objc var nilAttribute: AnyObject?
+	@objc var dateAttribute: Date?
+	@objc var toOneAttribute: Bar?
+	@objc var toManyAttribute: LinkedResourceCollection?
 	
 	override class var resourceType: String {
 		return "foos"
@@ -41,7 +41,7 @@ class Foo: Resource {
 		super.init()
 	}
 	
-	init(id: String) {
+	@objc init(id: String) {
 		super.init()
 		self.id = id
 	}
@@ -52,8 +52,8 @@ class Foo: Resource {
 }
 
 class Bar: Resource {
-	var barStringAttribute: String?
-	var barIntegerAttribute: NSNumber?
+	@objc var barStringAttribute: String?
+	@objc var barIntegerAttribute: NSNumber?
 	
 	override class var resourceType: String {
 		return "bars"
@@ -70,7 +70,7 @@ class Bar: Resource {
 		super.init()
 	}
 	
-	init(id: String) {
+	@objc init(id: String) {
 		super.init()
 		self.id = id
 	}
