@@ -43,7 +43,7 @@ class DeserializeOperation: Operation {
 	}
 
 	
-	@objc func addMappingTargets(_ targets: [Resource]) {		
+	func addMappingTargets(_ targets: [Resource]) {		
 		resourcePool += targets
 	}
 	

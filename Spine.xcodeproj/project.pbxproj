@@ -713,11 +713,11 @@
 					};
 					D373F78719B2249900275AFC = {
 						CreatedOnToolsVersion = 6.0;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 0800;
 					};
 					D373F79219B2249900275AFC = {
 						CreatedOnToolsVersion = 6.0;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 0800;
 					};
 					D398E1461DA1554300FBC6FD = {
 						CreatedOnToolsVersion = 8.0;
@@ -1364,7 +1364,6 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1388,7 +1387,6 @@
 				PRODUCT_NAME = Spine;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -1409,7 +1407,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wardvanteijlingen.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1426,7 +1423,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wardvanteijlingen.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
