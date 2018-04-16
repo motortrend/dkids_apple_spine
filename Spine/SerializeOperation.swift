@@ -50,7 +50,7 @@ class SerializeOperation: Operation {
 	// MARK: Serializing
 	
 	fileprivate func serializeResource(_ resource: Resource) -> [String: Any] {
-		Spine.logDebug(.serializing, "Serializing resource \(resource) of type '\(resource.resourceType)' with id '\(String(describing: resource.id))'")
+		Spine.logDebug("Serializing resource \(resource) of type '\(resource.resourceType)' with id '\(String(describing: resource.id))'")
 		
 		var serializedData: [String: Any] = [:]
 		
@@ -82,7 +82,7 @@ class SerializeOperation: Operation {
 		for case let field as Attribute in resource.fields where field.isReadOnly == false {
 			let key = keyFormatter.format(field)
 			
-			Spine.logDebug(.serializing, "Serializing attribute \(field) as '\(key)'")
+			Spine.logDebug("Serializing attribute \(field) as '\(key)'")
 			
 			if let unformattedValue = resource.value(forField: field.name) {
 				attributes[key] = valueFormatters.formatValue(unformattedValue, forAttribute: field)
@@ -105,7 +105,7 @@ class SerializeOperation: Operation {
 		for case let field as Relationship in resource.fields where field.isReadOnly == false {
 			let key = keyFormatter.format(field)
 			
-			Spine.logDebug(.serializing, "Serializing relationship \(field) as '\(key)'")
+			Spine.logDebug("Serializing relationship \(field) as '\(key)'")
 			
 			switch field {
 			case let toOne as ToOneRelationship:

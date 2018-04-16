@@ -51,7 +51,7 @@ class DeserializeOperation: Operation {
 		// Validate document
 		guard data.dictionary != nil else {
 			let errorMessage = "The given JSON is not a dictionary (hash).";
-			Spine.logError(.serializing, errorMessage)
+			Spine.logError(errorMessage)
 			result = Failable(SerializerError.invalidDocumentStructure)
 			return
 		}
@@ -62,14 +62,14 @@ class DeserializeOperation: Operation {
 
 		guard hasData || hasErrors || hasMeta else {
 			let errorMessage = "Either 'data', 'errors', or 'meta' must be present in the top level.";
-			Spine.logError(.serializing, errorMessage)
+			Spine.logError(errorMessage)
 			result = Failable(SerializerError.topLevelEntryMissing)
 			return
 		}
 
 		guard hasErrors && !hasData || !hasErrors && hasData else {
 			let errorMessage = "Top level 'data' and 'errors' must not coexist in the same document.";
-			Spine.logError(.serializing, errorMessage)
+			Spine.logError(errorMessage)
 			result = Failable(SerializerError.topLevelDataAndErrorsCoexist)
 			return
 		}
@@ -92,7 +92,7 @@ class DeserializeOperation: Operation {
                     do {
                         try extractedIncludedResources.append(deserializeSingleRepresentation(representation))
                     } catch SerializerError.resourceTypeUnregistered(let resourceType) {
-                        Spine.logWarning(.serializing, "Cannot perform deserialization for resource type '\(resourceType)' because it is not registered.")
+                        Spine.logWarning("Cannot perform deserialization for resource type '\(resourceType)' because it is not registered.")
                     }
 				}
 			}
@@ -337,12 +337,12 @@ class DeserializeOperation: Operation {
 			for case let field as ToManyRelationship in resource.fields {
 				
 				guard let linkedResourceCollection = resource.value(forField: field.name) as? LinkedResourceCollection else {
-					Spine.logInfo(.serializing, "Cannot resolve relationship '\(field.name)' of \(resource.resourceType):\(resource.id!) because the JSON did not include the relationship.")
+					Spine.logInfo("Cannot resolve relationship '\(field.name)' of \(resource.resourceType):\(resource.id!) because the JSON did not include the relationship.")
 					continue
 				}
 				
 				guard let linkage = linkedResourceCollection.linkage else {
-					Spine.logInfo(.serializing, "Cannot resolve relationship '\(field.name)' of \(resource.resourceType):\(resource.id!) because the JSON did not include linkage.")
+					Spine.logInfo("Cannot resolve relationship '\(field.name)' of \(resource.resourceType):\(resource.id!) because the JSON did not include linkage.")
 					continue
 				}
 					

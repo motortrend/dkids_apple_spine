@@ -121,7 +121,7 @@ struct ValueFormatterRegistry {
 			}
 		}
 		
-		Spine.logWarning(.serializing, "No value formatter found for attribute \(attribute).")
+		Spine.logWarning("No value formatter found for attribute \(attribute).")
 		return value
 	}
 }
@@ -156,7 +156,7 @@ private struct DateValueFormatter: ValueFormatter {
 	
 	func unformatValue(_ value: String, forAttribute attribute: DateAttribute) -> Date {
 		guard let date = formatter(attribute).date(from: value) else {
-			Spine.logWarning(.serializing, "Could not deserialize date string \(value) with format \(attribute.format).")
+			Spine.logWarning("Could not deserialize date string \(value) with format \(attribute.format).")
 			return Date(timeIntervalSince1970: 0)
 		}
 		return date

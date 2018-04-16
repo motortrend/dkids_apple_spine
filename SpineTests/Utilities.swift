@@ -9,7 +9,6 @@
 import Foundation
 import XCTest
 import SwiftyJSON
-import BrightFutures
 
 extension XCTestCase {
 	
@@ -31,55 +30,6 @@ func ISO8601FormattedDate(_ date: Date) -> String {
 }
 
 // MARK: - Custom assertions
-
-func assertFutureSuccess<T, E>(_ future: Future<T, E>, expectation: XCTestExpectation) {
-	future.onSuccess { resources in
-		expectation.fulfill()
-	}.onFailure { error in
-		expectation.fulfill()
-		XCTFail("Expected future to complete with success.")
-	}
-}
-
-func assertFutureFailure<T>(_ future: Future<T, SpineError>, withError expectedError: SpineError, expectation: XCTestExpectation) {
-	future.onSuccess { resources in
-		expectation.fulfill()
-		XCTFail("Expected success callback to not be called.")
-	}.onFailure { error in
-		expectation.fulfill()
-		XCTAssertEqual(error, expectedError, "Expected error to be be \(expectedError).")
-	}
-}
-
-func assertFutureFailureWithServerError<T>(_ future: Future<T, SpineError>, statusCode code: Int, expectation: XCTestExpectation) {
-	future.onSuccess { resources in
-		expectation.fulfill()
-		XCTFail("Expected success callback to not be called.")
-		}.onFailure { error in
-			expectation.fulfill()
-			switch error {
-			case .serverError(let statusCode, _):
-				XCTAssertEqual(statusCode, code, "Expected error to be be .ServerError with statusCode \(code)")
-			default:
-				XCTFail("Expected error to be be .ServerError")
-			}
-	}
-}
-
-func assertFutureFailureWithNetworkError<T>(_ future: Future<T, SpineError>, code: Int, expectation: XCTestExpectation) {
-	future.onSuccess { resources in
-		expectation.fulfill()
-		XCTFail("Expected success callback to not be called.")
-	}.onFailure { error in
-		expectation.fulfill()
-		switch error {
-		case .networkError(let error):
-			XCTAssertEqual(error.code, code, "Expected error to be be .NetworkError with code \(code)")
-		default:
-			XCTFail("Expected error to be be .NetworkError")
-		}
-	}
-}
 
 func assertFooResource(_ foo: Foo, isEqualToJSON json: JSON) {
 	XCTAssertEqual(foo.stringAttribute!, json["attributes"]["string-attribute"].stringValue, "Deserialized string attribute is not equal.")
