@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import BrightFutures
 
 /// A ResourceCollection represents a collection of resources.
 public class ResourceCollection: NSObject, NSCoding {
