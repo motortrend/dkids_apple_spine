@@ -46,49 +46,40 @@ public enum LogLevel: Int {
 	}
 }
 
-/// Logging domains
-///
-/// - spine:       The main Spine component.
-/// - networking:  The networking component, requests, responses etc.
-/// - serializing: The (de)serializing component.
-public enum LogDomain {
-	case spine, networking, serializing
-}
-
-private var logLevels: [LogDomain: LogLevel] = [.spine: .none, .networking: .none, .serializing: .none]
+private var logLevel: LogLevel = .none
 
 /// Extension regarding logging.
 extension Spine {
 	public static var logger: Logger = ConsoleLogger()
 	
-	public class func setLogLevel(_ level: LogLevel, forDomain domain: LogDomain) {
-		logLevels[domain] = level
+	public class func setLogLevel(_ level: LogLevel) {
+		logLevel = level
 	}
 	
-	class func shouldLog(_ level: LogLevel, domain: LogDomain) -> Bool {
-		return (level.rawValue >= logLevels[domain]?.rawValue)
+	class func shouldLog(_ level: LogLevel) -> Bool {
+		return (level.rawValue >= logLevel.rawValue)
 	}
 
-	class func logDebug<T>(_ domain: LogDomain, _ object: T) {
-		if shouldLog(.debug, domain: domain) {
+	class func logDebug<T>(_ object: T) {
+		if shouldLog(.debug) {
 			logger.log(object, level: .debug)
 		}
 	}
 	
-	class func logInfo<T>(_ domain: LogDomain, _ object: T) {
-		if shouldLog(.info, domain: domain) {
+	class func logInfo<T>(_ object: T) {
+		if shouldLog(.info) {
 			logger.log(object, level: .info)
 		}
 	}
 	
-	class func logWarning<T>(_ domain: LogDomain, _ object: T) {
-		if shouldLog(.warning, domain: domain) {
+	class func logWarning<T>(_ object: T) {
+		if shouldLog(.warning) {
 			logger.log(object, level: .warning)
 		}
 	}
 	
-	class func logError<T>(_ domain: LogDomain, _ object: T) {
-		if shouldLog(.error, domain: domain) {
+	class func logError<T>(_ object: T) {
+		if shouldLog(.error) {
 			logger.log(object, level: .error)
 		}
 	}
