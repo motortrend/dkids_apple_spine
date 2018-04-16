@@ -16,5 +16,4 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.dependency 'SwiftyJSON', '~> 3.1'
-  s.dependency 'BrightFutures', '~> 6.0'
 end
