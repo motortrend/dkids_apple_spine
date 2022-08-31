@@ -17,7 +17,8 @@ class ResourceTests: XCTestCase {
 		foo.stringAttribute = "stringAttribute"
 		foo.nilAttribute = nil
 		foo.toOneAttribute = Bar(id: "10")
-	}
+		foo.links = ["customResourceLink": URL(string: "http://example.com/customResourceLink/10")!]
+  }
 
 	func testGetAttributeValue() {
 		let value = foo.value(forField: "stringAttribute")
@@ -68,6 +69,7 @@ class ResourceTests: XCTestCase {
 			XCTAssertEqual(decodedFoo.id!, foo.id!, "Expected id to be equal")
 			XCTAssertEqual(decodedFoo.url!, foo.url!, "Expected URL to be equal")
 			XCTAssertEqual(decodedFoo.isLoaded, foo.isLoaded, "Expected isLoaded to be equal")
+			XCTAssertEqual(decodedFoo.links, decodedFoo.links, "Expected links to be equal")
 		} else {
 			XCTFail("Fail")
 		}

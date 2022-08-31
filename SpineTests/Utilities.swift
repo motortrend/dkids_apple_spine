@@ -29,6 +29,10 @@ func ISO8601FormattedDate(_ date: Date) -> String {
 	return dateFormatter.string(from: date)
 }
 
+func resourceWithId(id: String, resources: [Resource]) -> Resource? {
+	resources.first { $0.id == id }
+}
+
 // MARK: - Custom assertions
 
 func assertFooResource(_ foo: Foo, isEqualToJSON json: JSON) {

@@ -176,6 +176,8 @@ class DeserializeOperation: Operation {
 		resource.id = id
 		resource.url = representation["links"]["self"].url
 		resource.meta = representation["meta"].dictionaryObject
+		resource.links = representation["links"].dictionary?.compactMapValues { $0.url }
+
 		extractAttributes(from: representation, intoResource: resource)
 		extractRelationships(from: representation, intoResource: resource)
 		

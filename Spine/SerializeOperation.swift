@@ -61,6 +61,11 @@ class SerializeOperation: Operation {
 		
 		// Serialize type
 		serializedData["type"] = resource.resourceType as AnyObject?
+
+		// Serialize links
+		if let links = resource.links {
+		  serializedData["links"] = links as AnyObject?
+		}
 		
 		// Serialize fields
 		addAttributes(from: resource, to: &serializedData )

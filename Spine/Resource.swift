@@ -99,6 +99,9 @@ open class Resource: NSObject, NSCoding {
 	
 	/// The metadata for this resource.
 	@objc public var meta: [String: Any]?
+
+	/// The links for this resource.
+	@objc public var links: [String: URL]?
 	
 	/// Raw relationship data keyed by relationship name.
 	var relationships: [String: RelationshipData] = [:]
@@ -113,6 +116,7 @@ open class Resource: NSObject, NSCoding {
 		self.url = coder.decodeObject(forKey: "url") as? URL
 		self.isLoaded = coder.decodeBool(forKey: "isLoaded")
 		self.meta = coder.decodeObject(forKey: "meta") as? [String: AnyObject]
+		self.links = coder.decodeObject(forKey: "links") as? [String: URL]
 		
 		if let relationshipsData = coder.decodeObject(forKey: "relationships") as? [String: NSDictionary] {
 			var relationships = [String: RelationshipData]()
@@ -127,6 +131,7 @@ open class Resource: NSObject, NSCoding {
 		coder.encode(url, forKey: "url")
 		coder.encode(isLoaded, forKey: "isLoaded")
 		coder.encode(meta, forKey: "meta")
+		coder.encode(links, forKey: "links")
 		
 		var relationshipsData = [String: NSDictionary]()
 		for (key, value) in relationships {
