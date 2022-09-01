@@ -92,13 +92,13 @@ class SerializingTests: SerializerTests {
 		
 		XCTAssertNotNil(json["data"]["relationships"]["to-many-attribute"].error, "Expected serialized to-many to be absent.")
 	}
-    
-    func testSerializeResourceOmittingNulls() {
-        let options: SerializationOptions = [.OmitNullValues]
-        let serializedData = try! serializer.serializeResources([foo], options: options)
-        let json = (try? JSON(data: serializedData)) ?? JSON(NSNull())
-        XCTAssertNotNil(json["data"]["attributes"]["nil-attribute"].error, "Expected serialized nil to be absent.")
-    }
+
+	func testSerializeResourceOmittingNulls() {
+		let options: SerializationOptions = [.OmitNullValues]
+		let serializedData = try! serializer.serializeResources([foo], options: options)
+		let json = (try? JSON(data: serializedData)) ?? JSON(NSNull())
+		XCTAssertNotNil(json["data"]["attributes"]["nil-attribute"].error, "Expected serialized nil to be absent.")
+	}
 }
 
 class DeserializingTests: SerializerTests {
@@ -241,7 +241,7 @@ class DeserializingTests: SerializerTests {
       XCTFail("Deserialisation failed with error: \(error).")
     }
   }
-	
+
 	func testDeserializeCompoundDocument() {
 		let fixture = JSONFixtureWithName("SingleFooIncludingBars")
 		let json = fixture.json
@@ -296,7 +296,25 @@ class DeserializingTests: SerializerTests {
 					XCTAssertEqual(barCollection.linkage![1].id, "12", "Expected second linkage item to have id '12'.")
 				}
 			}
-			
+
+			if let includedResources = document.included {
+				XCTAssertEqual(includedResources.count, 3)
+
+				var givenResource = resourceWithId(id: "10", resources: includedResources)
+				XCTAssertEqual(
+				  givenResource?.links?["customResourceLink"]?.absoluteString,
+				  "http://example.com/customResourceLink/10"
+				)
+
+				givenResource = resourceWithId(id: "11", resources: includedResources)
+				XCTAssertEqual(
+				  givenResource?.links?["customResourceLink"]?.absoluteString,
+				  "/relative/customResourceLink/11"
+				)
+
+                givenResource = resourceWithId(id: "12", resources: includedResources)
+                XCTAssertNil(givenResource?.links?["customResourceLink"], "invalid URL")
+			}
 			
 		} catch let error as NSError {
 			XCTFail("Deserialisation failed with error: \(error).")
