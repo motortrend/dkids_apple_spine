@@ -1,5 +1,8 @@
 [![Build Status](https://travis-ci.org/wvteijlingen/Spine.svg?branch=swift-2.0)](https://travis-ci.org/wvteijlingen/Spine) [![Join the chat at https://gitter.im/wvteijlingen/Spine](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/wvteijlingen/Spine?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
+### Archived 11/10/2022
+With mtod-ios' transition to SPM, along with changes to luna-apple-networking, this repo is no longer needed. We're archiving this repo in case we need to build older versions of the mtod-ios app.
+
 # Spine
 Spine is a Swift library for working with APIs that adhere to the [jsonapi.org](http://jsonapi.org) standard. It supports mapping to custom model classes, fetching, advanced querying, linking and persisting.
 
